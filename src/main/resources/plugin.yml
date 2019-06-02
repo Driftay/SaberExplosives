@@ -1,0 +1,12 @@
+name: dCeggs
+main: me.driftay.cegg.dCeggs
+version: ${project.version}
+author: Driftay
+description: The Ultimate Creeper Egg Throwing Plugin
+commands:
+  dcegg:
+    description: default command
+
+permissions:
+  dcegg.give:
+    description: Grants Ability to give Throwable Creeper Eggs
