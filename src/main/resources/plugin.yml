@@ -1,12 +1,13 @@
-name: dCeggs
-main: me.driftay.cegg.dCeggs
+name: SaberExplosives
+main: me.driftay.explosive.SaberExplosives
 version: ${project.version}
 author: Driftay
 description: The Ultimate Creeper Egg Throwing Plugin
 commands:
-  dcegg:
-    description: default command
-
+  scegg:
+    description: Give Throwable Creeper Eggs
+  semtex:
+    description: Give Semtex's
 permissions:
-  dcegg.give:
-    description: Grants Ability to give Throwable Creeper Eggs
+  saberexplosives.give:
+    description: Grants Ability to give Throwable Creeper Eggs & Semtex's

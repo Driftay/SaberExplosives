@@ -2,7 +2,7 @@
 #######################################################################################
 #######################################################################################
 #####                                                                             #####
-#####                             dCeggs 1.0                                      #####
+#####                        SaberExplosives 1.0                                  #####
 #####                         Created By Driftay                                  #####
 #####                                                                             #####
 #######################################################################################
@@ -14,16 +14,30 @@
 #Refer to: https://wiki.ess3.net/mc/
 #<-------------------------------------->NOTES<-------------------------------------->#
 
+Use-Throwable-Creeper-Eggs: true
+Use-Semtex: true
+
+
 Throwable:
-  Item:
-    Glow: true
-    Name: '&2&lThrowable Creeper &7(Right Click)'
-    Lore:
-      - '&f&lInformation'
-      - '&7(Right Click to Throw)'
-      - ' '
-      - '- &7Explosion Time: &f2 Seconds'
+  CreeperEgg:
+    Item:
+      Glow: true
+      Name: '&2&lThrowableCreeper &7(Right Click)'
+      Lore:
+        - '&f&lInformation'
+        - '&7(Right Click to Throw)'
+        - ' '
+        - '- &7Explosion Time: &f2 Seconds'
+  SnowBall:
+    Item:
+      Glow: true
+      Name: '&c&lSemtex &7(Right Click)'
+      Lore:
+        - '&f&lInformation'
+        - '&7(Right Click to Throw)'
+        - ' '
+        - '- &7Explosion Time: &fInstant on impact'
 
   Creeper-Manager:
-    Explode-Radius: 3
-    Explode-Timer: 2.0
+    Explode-Radius: 3 #Applies to Both Functions
+    Explode-Timer: 2.0 #CreeperEggs Only
