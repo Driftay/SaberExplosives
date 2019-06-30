@@ -44,17 +44,16 @@ public class Util {
     }
 
     public static ItemStack createSnowballItem(int amt) {
-        ItemStack sponge = new ItemStack(Material.SNOW_BALL, amt);
+        ItemStack snowball = new ItemStack(Material.SNOW_BALL, amt);
         Glow glow = new Glow(1);
         if(config.getBoolean("Throwable.Snowball.Item.Glow")){
-            sponge.addUnsafeEnchantment(glow, 1);
+            snowball.addUnsafeEnchantment(glow, 1);
         }
-
-        ItemMeta spongeItemMeta = sponge.getItemMeta();
-        spongeItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        spongeItemMeta.setDisplayName(color(config.getString("Throwable.Snowball.Item.Name")));
-        spongeItemMeta.setLore(color(config.getStringList("Throwable.Snowball.Item.Lore")));
-        sponge.setItemMeta(spongeItemMeta);
-        return sponge;
+        ItemMeta snowballItemMeta = snowball.getItemMeta();
+        snowballItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        snowballItemMeta.setDisplayName(color(config.getString("Throwable.Snowball.Item.Name")));
+        snowballItemMeta.setLore(color(config.getStringList("Throwable.Snowball.Item.Lore")));
+        snowball.setItemMeta(snowballItemMeta);
+        return snowball;
     }
 }

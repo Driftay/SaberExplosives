@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import static me.driftay.explosive.utils.Util.color;
@@ -25,14 +26,11 @@ import static me.driftay.explosive.utils.Util.config;
 public class ThrowManagerSnowBalls implements Listener {
 
     @EventHandler
-    public void onThrow(PlayerInteractEvent e) {
+    public void onThrowSnowBall(PlayerInteractEvent e) {
         Faction faction = Board.getInstance().getFactionAt(new FLocation(e.getPlayer()));
         if (faction == null) return;
-        if (e.getPlayer().getItemInHand() == null) return;
-        if (e.getPlayer().getItemInHand().getItemMeta() == null) return;
-        if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName() == null) return;
-        if (!e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Snowball.Item.Name"))))
-            return;
+        ItemStack i = e.getPlayer().getItemInHand();
+        if(i == null || !i.hasItemMeta() || !i.getItemMeta().hasDisplayName() || !i.getItemMeta().getDisplayName().equalsIgnoreCase((color(config.getString("Throwable.Snowball.Item.Name"))))) return;
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             e.setCancelled(true);
@@ -65,7 +63,7 @@ public class ThrowManagerSnowBalls implements Listener {
 
 
     @EventHandler
-    public void onThrow(ProjectileLaunchEvent e) {
+    public void onThrow2(ProjectileLaunchEvent e) {
         Player p = (Player) e.getEntity().getShooter();
 
         if (e.getEntity() instanceof Snowball) {

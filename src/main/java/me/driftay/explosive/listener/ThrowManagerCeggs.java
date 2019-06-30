@@ -8,17 +8,18 @@ import me.driftay.explosive.SaberExplosives;
 import me.driftay.explosive.hooks.impl.WorldGuardHook;
 import me.driftay.explosive.managers.HookManager;
 import me.driftay.explosive.utils.Message;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import static me.driftay.explosive.utils.Util.color;
 import static me.driftay.explosive.utils.Util.config;
@@ -30,7 +31,6 @@ public class ThrowManagerCeggs implements Listener {
     @EventHandler
     public void onThrow(PlayerInteractEvent e) {
         Faction faction = Board.getInstance().getFactionAt(new FLocation(e.getPlayer()));
-        if (faction == null) return;
         if (e.getPlayer().getItemInHand() == null) return;
         if (e.getPlayer().getItemInHand().getItemMeta() == null) return;
         if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName() == null) return;
@@ -40,8 +40,9 @@ public class ThrowManagerCeggs implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(Message.CEGG_CANNOT_PLACE.getMessage());
-        } else if (e.getAction() == Action.RIGHT_CLICK_AIR) {
-
+            return;
+        }
+        if (e.getAction() == Action.RIGHT_CLICK_AIR) {
             if (HookManager.getPluginMap().get("WorldGuard") != null) {
                 WorldGuardHook wgHook = ((WorldGuardHook) HookManager.getPluginMap().get("WorldGuard"));
                 if (!wgHook.canBuild(e.getPlayer(), e.getPlayer().getLocation())) {
@@ -67,18 +68,35 @@ public class ThrowManagerCeggs implements Listener {
 
                 item.setPickupDelay(40);
 
-                Bukkit.getScheduler().runTaskLater(SaberExplosives.instance, () -> {
-                    SaberExplosives.instance.getNMS().spawnCreeper(item.getLocation().getBlock());
-                    item.remove();
-                }, (long) (20 * config.getDouble("Throwable.Creeper-Manager.Explode-Timer")));
+                new BukkitRunnable() {
+                    public void run() {
+                        SaberExplosives.instance.getNMS().spawnCreeper(item.getLocation().getBlock());
+                        item.remove();
+                    }
+                }.runTaskLater(SaberExplosives.instance, (long) (20L * config.getDouble("Throwable.Creeper-Manager.Explode-Timer")));
             }
+        }
+    }
+
+    @EventHandler
+    public void onPickup(PlayerPickupItemEvent e) {
+        if (e.getPlayer().getType() != EntityType.PLAYER) {
+            return;
+        }
+        if (e.getItem().getItemStack().getType() != Material.MONSTER_EGG) {
+            return;
+        }
+
+        if (e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.CreeperEgg.Item.Name")))) {
+            e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onHopperGlitch(InventoryPickupItemEvent e) {
         if (e.getInventory().getType() != InventoryType.HOPPER) return;
-        if (e.getItem().getItemStack().getType() != Material.SNOW_BALL || e.getItem().getItemStack().getType() != Material.MONSTER_EGG) return;
+        if (e.getItem().getItemStack().getType() != Material.SNOW_BALL || e.getItem().getItemStack().getType() != Material.MONSTER_EGG)
+            return;
 
         if (e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Item.Name")))) {
             e.setCancelled(true);

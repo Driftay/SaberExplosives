@@ -5,9 +5,10 @@ author: Driftay
 description: The Ultimate Creeper Egg Throwing Plugin
 commands:
   scegg:
-    description: Give Throwable Creeper Eggs
+    description: Gives Throwable Creeper Eggs
   semtex:
-    description: Give Semtex's
+    description: Give Throwable Creeper Eggs
+
 permissions:
   saberexplosives.give:
-    description: Grants Ability to give Throwable Creeper Eggs & Semtex's
+    description: Grants Ability to give Throwable Creeper Eggs & Semtexs

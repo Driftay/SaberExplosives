@@ -28,19 +28,18 @@ public class SaberExplosives extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         registerGlow();
 
-        if(getConfig().getBoolean("Use-Throwable-Creeper-Eggs")){
-            getServer().getPluginManager().registerEvents(new ThrowManagerCeggs(),this);
-            getCommand("scegg").setExecutor(new CmdCegg());
-        }
+        getCommand("scegg").setExecutor(new CmdCegg());
+        getServer().getPluginManager().registerEvents(new ThrowManagerCeggs(),this);
 
-        if(getConfig().getBoolean("Use-Semtexs")){
-            getServer().getPluginManager().registerEvents(new ThrowManagerSnowBalls(), this);
+        if(getConfig().getBoolean("Use-Semtex")) {
             getCommand("semtex").setExecutor(new CmdSemtex());
+            getServer().getPluginManager().registerEvents(new ThrowManagerSnowBalls(), this);
         }
 
         hookManager = new HookManager(this);
         fileManager = new FileManager(this);
         nmsManager = new NMSManager(this);
+
     }
 
     public FileManager getFileManager() {

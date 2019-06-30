@@ -14,9 +14,7 @@
 #Refer to: https://wiki.ess3.net/mc/
 #<-------------------------------------->NOTES<-------------------------------------->#
 
-Use-Throwable-Creeper-Eggs: true
-Use-Semtex: true
-
+Use-Semtex: true #Throwable Snowballs that explode on impact
 
 Throwable:
   CreeperEgg:
@@ -28,7 +26,7 @@ Throwable:
         - '&7(Right Click to Throw)'
         - ' '
         - '- &7Explosion Time: &f2 Seconds'
-  SnowBall:
+  Snowball:
     Item:
       Glow: true
       Name: '&c&lSemtex &7(Right Click)'
