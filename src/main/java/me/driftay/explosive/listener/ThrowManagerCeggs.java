@@ -66,7 +66,7 @@ public class ThrowManagerCeggs implements Listener {
                     e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() - 1);
                 }
 
-                item.setPickupDelay(40);
+                item.setPickupDelay((int) (25L * config.getDouble("Throwable.Creeper-Manager.Explode-Timer")));
 
                 new BukkitRunnable() {
                     public void run() {
@@ -79,26 +79,13 @@ public class ThrowManagerCeggs implements Listener {
     }
 
     @EventHandler
-    public void onPickup(PlayerPickupItemEvent e) {
-        if (e.getPlayer().getType() != EntityType.PLAYER) {
-            return;
-        }
-        if (e.getItem().getItemStack().getType() != Material.MONSTER_EGG) {
-            return;
-        }
-
-        if (e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.CreeperEgg.Item.Name")))) {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
     public void onHopperGlitch(InventoryPickupItemEvent e) {
         if (e.getInventory().getType() != InventoryType.HOPPER) return;
         if (e.getItem().getItemStack().getType() != Material.SNOW_BALL || e.getItem().getItemStack().getType() != Material.MONSTER_EGG)
             return;
 
-        if (e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Item.Name")))) {
+        if (e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Snowball.Item.Name")))
+                || e.getItem().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.CreeperEgg.Item.Name")))) {
             e.setCancelled(true);
         }
     }
