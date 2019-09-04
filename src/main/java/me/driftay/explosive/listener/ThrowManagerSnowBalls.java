@@ -66,6 +66,8 @@ public class ThrowManagerSnowBalls implements Listener {
     public void onThrow2(ProjectileLaunchEvent e) {
         Player p = (Player) e.getEntity().getShooter();
 
+        if(!(e.getEntity().getShooter() instanceof Player)) return;
+        
         if (e.getEntity() instanceof Snowball) {
             if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Snowball.Item.Name")))) {
                 e.getEntity().setMetadata("throwable", new FixedMetadataValue(SaberExplosives.instance, true));
