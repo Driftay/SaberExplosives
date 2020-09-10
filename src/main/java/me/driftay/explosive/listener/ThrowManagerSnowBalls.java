@@ -18,6 +18,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.projectiles.ProjectileSource;
 
 import static me.driftay.explosive.utils.Util.color;
 import static me.driftay.explosive.utils.Util.config;
@@ -64,12 +65,11 @@ public class ThrowManagerSnowBalls implements Listener {
 
     @EventHandler
     public void onThrow2(ProjectileLaunchEvent e) {
-        Player p = (Player) e.getEntity().getShooter();
+        ProjectileSource shooter = e.getEntity().getShooter();
+        if(!(shooter instanceof Player)) return;
 
-        if(!(e.getEntity().getShooter() instanceof Player)) return;
-        
         if (e.getEntity() instanceof Snowball) {
-            if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Snowball.Item.Name")))) {
+            if (((Player) shooter).getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(color(config.getString("Throwable.Snowball.Item.Name")))) {
                 e.getEntity().setMetadata("throwable", new FixedMetadataValue(SaberExplosives.instance, true));
             }
         }
