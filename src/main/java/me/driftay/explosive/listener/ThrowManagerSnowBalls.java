@@ -49,13 +49,6 @@ public class ThrowManagerSnowBalls implements Listener {
                 if (faction == Factions.getInstance().getSafeZone() || faction == Factions.getInstance().getWarZone()) {
                     e.getPlayer().sendMessage(Message.SEMTEX_CANNOT_THROW_HERE.getMessage().replace("%faction%", faction.getTag()));
                     e.setCancelled(true);
-                    return;
-                }
-
-                if (e.getPlayer().getItemInHand().getAmount() == 1) {
-                    e.getPlayer().setItemInHand(null);
-                } else {
-                    e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() - 1);
                 }
             }
         }
